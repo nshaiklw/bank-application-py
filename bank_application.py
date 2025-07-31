@@ -1,5 +1,10 @@
-
 import bank_utils
+import random
+import importlib
+importlib.reload(bank_utils)
+
+
+customers = {}
 
 print("Welcome to Bank of Python!")
 option = 0
@@ -14,10 +19,12 @@ while option != '5':
   ''')
 
   if option == '1':
-      new_account = bank_utils.create_account()
-      if new_account:
+      customer = bank_utils.create_account()
+      if customer is not None:
+        if customer.customer_number not in customers:
+          customers[customer.customer_number] = customer
         print("\nAccount created successfully!")
-        new_account.display()
+        customer.display()
         print("-" * 20)
   elif option == '2':
       print('Check Balance')
