@@ -12,6 +12,14 @@ try:
 except FileNotFoundError:
     pass
 
+def get_customer():
+  existing_customer = input("Are you an existing customer? (yes/no): ")
+  if existing_customer.lower() == 'yes':
+    customer_number = input("Please enter your customer number: ")
+    if customer_number not in customers:
+      existing_customer = input("Customer is invalid, please retry")
+  return customers[customer_number]
+
 
 print("Welcome to Bank of Python!")
 option = 0
@@ -26,28 +34,31 @@ while option != '5':
   ''')
 
   if option == '1':
-    existing_customer = input("Are you an existing customer? (yes/no): ")
-    if existing_customer.lower() == 'yes':
-      customer_number = input("Please enter your customer number: ")
-      if customer_number in customers:
-        customer = customers[customer_number]
-      else:
-        print("Customer not found.")
-        existing_customer = input("Customer is invalid, please retry")
+    customer = get_customer()
+    if customer:
+      customer.display()
+      print("-" * 20)
     else:
       customer_number = str(random.randint(1, 1000))
       name = input("Please enter your name: ")
       email = input("Please enter your email: ")
       customer = bank_utils.Customer(customer_number, name, email)
+      customer.display()
     bank_utils.create_account(customer)
     customers[customer.customer_number] = customer
     print("\nAccount created successfully")
     customer.display()
     print("-" * 20)
   elif option == '2':
-      print('Check Balance')
+    customer = get_customer()
+    if customer:
+      customer.display()
+      print("-" * 20)
   elif option == '3':
-      print('Deposit')
+    customer = get_customer()
+    if customer:
+      customer.display()
+      print("-" * 20)
   elif option == '4':
       print('Withdrawl')
 
