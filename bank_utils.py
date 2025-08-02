@@ -69,7 +69,7 @@ def create_debit_account(customer):
   customer.add_account(da)
 
 def create_hybrid_account(customer):
-  initial_deposit = input("Enter the initial deposit: ")
+  initial_deposit = int(input("Enter the initial deposit: "))
   while initial_deposit < 0:
     initial_deposit = input("Invalid amount. Please enter deposit 0 or greater than 0:")
   print(f"Creating hybrid account for {customer.name} with email {customer.email}")
