@@ -77,25 +77,13 @@ def create_hybrid_account(customer):
   ha = HybridAccount(account_number, 100, initial_deposit)
   customer.add_account(ha)
 
-def create_account():
+def create_account(customer):
   # Prompt the user to enter the option
   account_option = input('''Why type of Account you like to create?
   1. Credit Account
   2. Debit Account
   3. Hybrid Account
   ''')
-  existing_customer = input("Are you existing customer (yes/no)?: ")
-  if existing_customer == 'no':
-    name = input("Enter your name: ")
-    email = input("Enter your email: ")
-    customer_number = random.randint(1, 1000)
-    customer = Customer(customer_number, name, email)
-  else:
-    customer_number = input("Enter your existing customer number: ")
-    # This is where you would typically look up the customer
-    # For now, we'll just create a dummy customer
-    customer = Customer(customer_number, "Existing Customer", "existing@email.com")
-
 
   if account_option == '1':
     create_credit_account(customer)
