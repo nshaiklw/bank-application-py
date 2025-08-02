@@ -20,16 +20,35 @@ class Customer:
       print()
 
 class Account:
-  def __init__(self, account_number):
+  def __init__(self, account_type, account_number, balance):
     self.account_number = account_number
+    self.balance = balance
+    self.account_type = account_type
+
+  def credit(self, amount):
+    self.balance += amount
+
+  def debit(self, amount):
+    if amount <= self.balance:
+      self.balance -= amount
+    else:
+      print("Insufficient balance")
 
   def display(self):
     print(f"Account Number: {self.account_number}")
+    print(f"Account Type: {self.account_type}")
+    print(f"Account Balance: {self.balance}")
 
 class CreditAccount(Account):
   def __init__(self, account_number, credit_limit):
-    super().__init__(account_number)
+    super().__init__("credit", account_number, 0)
     self.credit_limit = credit_limit
+
+  def debit(self, amount):
+    if amount <= self.credit_limit:
+      super().debit(amount)
+    else:
+      print("Insufficient credit limit")
 
   def display(self):
     super().display()
@@ -37,21 +56,16 @@ class CreditAccount(Account):
 
 class DebitAccount(Account):
   def __init__(self, account_number, balance):
-    super().__init__(account_number)
-    self.balance = balance
+    super().__init__("debit", account_number, balance)
 
-  def display(self):
-    super().display()
-    print(f"Balance: {self.balance}")
 
 class HybridAccount(CreditAccount, DebitAccount):
   def __init__(self, account_number, credit_limit, balance):
-    CreditAccount.__init__(self, account_number, credit_limit)
-    DebitAccount.__init__(self, account_number, balance)
+    Account.__init__(self, "hybrid", account_number, balance)
+    CreditAccount.credit_limit = credit_limit
 
   def display(self):
     CreditAccount.display(self)
-    DebitAccount.display(self)
 
 def create_credit_account(customer):
   print(f"Creating credit account for {customer.name} with email {customer.email}")
