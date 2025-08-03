@@ -17,8 +17,8 @@ def get_customer():
   if existing_customer.lower() == 'yes':
     customer_number = input("Please enter your customer number: ")
     if customer_number not in customers:
-      existing_customer = input("Customer is invalid, please retry")
-  return customers[customer_number]
+      customer_number = input("Customer is invalid, please retry")
+    return customers[customer_number]
 
 
 print("Welcome to Bank of Python!")
@@ -59,6 +59,11 @@ while option != '5':
     if customer:
       customer.display()
       print("-" * 20)
+      account_number = input("Enter the account number")
+      for account in customer.accounts:
+        if account_number == str(account.account_number):
+            amount = input("Enter the amount")
+            account.credit(int(amount))      
   elif option == '4':
       print('Withdrawl')
 
