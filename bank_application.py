@@ -60,12 +60,18 @@ while option != '5':
       customer.display()
       print("-" * 20)
       account_number = input("Enter the account number")
-      for account in customer.accounts:
-        if account_number == str(account.account_number):
-            amount = input("Enter the amount")
-            account.credit(int(amount))      
+      account = customer.accounts[int(account_number)]
+      amount = input("Enter the amount")
+      account.credit(int(amount))      
   elif option == '4':
-      print('Withdrawl')
+    customer = get_customer()
+    if customer:
+      customer.display()
+      print("-" * 20)
+      account_number = input("Enter the account number")
+      account = customer.accounts[int(account_number)]
+      amount = input("Enter the amount")
+      account.debit(int(amount))      
 
 # Store the dictionary in a file
 with open("accounts_data.pkl", "wb") as f:

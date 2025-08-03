@@ -43,7 +43,7 @@ class CreditAccount(Account):
   def __init__(self, account_number, credit_limit):
     super().__init__("credit", account_number, 0)
     self.credit_limit = credit_limit
-
+      
   def debit(self, amount):
     if amount <= self.credit_limit:
       super().debit(amount)
